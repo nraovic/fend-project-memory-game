@@ -1,7 +1,18 @@
 /*
  * Create a list that holds all of your cards
  */
+let ul = document.querySelector('.deck');
 
+const cardSigns = [
+    'fa fa-diamond', 'fa fa-diamond', 
+    'fa fa-paper-plane-o', 'fa fa-paper-plane-o', 
+    'fa fa-anchor', 'fa fa-anchor',
+    'fa fa-bolt', 'fa fa-bolt',
+    'fa fa-cube', 'fa fa-cube',
+    'fa fa-leaf', 'fa fa-leaf',
+    'fa fa-bicycle', 'fa fa-bicycle',
+    'fa fa-bomb', 'fa fa-bomb'
+];
 
 /*
  * Display the cards on the page
@@ -25,6 +36,32 @@ function shuffle(array) {
     return array;
 }
 
+const shuffleSigns = shuffle(cardSigns);
+console.log(shuffleSigns);
+
+for (let sign of shuffleSigns) {
+    let li = document.createElement('li');
+    li.className = 'card';
+    let i = document.createElement('i');
+    i.className = sign;
+    ul.appendChild(li);
+    li.appendChild(i);
+}
+/*
+console.log(shuffle(cards));
+const index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const shuffleIndex = shuffle(index);
+console.log(shuffleIndex);
+
+let i = 0;
+let newCards = [];
+for (let index of shuffleIndex) {  
+    let element = cards[shuffleIndex[i]];
+    newCards.push(element);
+    i += 1;
+}
+console.log(newCards);
+*/
 
 /*
  * set up the event listener for a card. If a card is clicked:
