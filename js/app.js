@@ -1,9 +1,7 @@
-/*
- * Create a list that holds all of your cards
- */
+
 let ul = document.querySelector('.deck');
 
-const cardSigns = [
+const cardSymbols = [
     'fa fa-diamond', 'fa fa-diamond', 
     'fa fa-paper-plane-o', 'fa fa-paper-plane-o', 
     'fa fa-anchor', 'fa fa-anchor',
@@ -14,12 +12,6 @@ const cardSigns = [
     'fa fa-bomb', 'fa fa-bomb'
 ];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -36,10 +28,10 @@ function shuffle(array) {
     return array;
 }
 
-const shuffleSigns = shuffle(cardSigns);
-console.log(shuffleSigns);
+const shuffleSymbols = shuffle(cardSymbols);
+console.log(shuffleSymbols);
 
-for (let sign of shuffleSigns) {
+for (let sign of shuffleSymbols) {
     let li = document.createElement('li');
     li.className = 'card';
     let i = document.createElement('i');
@@ -48,48 +40,81 @@ for (let sign of shuffleSigns) {
     li.appendChild(i);
 }
 
-listShow = [];
-listHidden = [];
-listMatch = [];
+let listShow = [];
+const openedCards = function (li) {
+    li.className += ' show';
+    listShow.push(li);
+};
 
 //get span and moves
-const moves = document.querySelector('.moves');
-let numberOfMoves= 0;
+let numberOfMoves = 0;
+const movesUpdate = function() {
+    const moves = document.querySelector('.moves');
+    numberOfMoves += 1;
+    moves.textContent = `${numberOfMoves}`
+}
+
+//check if cards match and trigger appropriate behaviour 
+const cardMatch = function() {
+    const cardsMatch = listShow[0].firstChild.className === listShow[1].firstChild.className;
+    for (element of listShow) {
+        if (cardsMatch) {
+            element.className = 'card match';
+        } else {
+            element.style.cssText = 'transition: 0.6s; transform: rotateY(180deg);';
+            element.addEventListener('transitionend', (e) => {
+                e.target.className = 'card';
+                e.target.style.cssText = '';
+            })
+        }
+    }
+    //clear the 'show' list
+    listShow = [];
+    }
+    
 //step
+
+
 ul.addEventListener('click', (e) => {
     const li = e.target;
-    if (li.className === 'card') {
-        li.className += ' show';
-        listShow.push(li);
-        if (listShow.length === 2) {
-            numberOfMoves += 1;
-            moves.textContent = `${numberOfMoves}`
-            console.log(numberOfMoves)            
-            if (listShow[0].firstChild.className === listShow[1].firstChild.className) { //cardMatch function
-                listShow[0].className = 'card match';
-                listShow[1].className = 'card match';
-                listShow = [];
-            } else {
-                listShow[0].style.cssText = 'transition: 0.6s; transform: rotateY(180deg);'; //cardMissed function
-                listShow[1].style.cssText = 'transition: 0.6s; transform: rotateY(180deg);';
-                listShow[0].addEventListener('transitionend', (e) => {                   
-                    e.target.className = 'card';
-                    e.target.style.cssText = '';
-                });
-                listShow[1].addEventListener('transitionend', (e) => {
-                    e.target.className = 'card';
-                    e.target.style.cssText = '';
-                }); 
-                listShow = [];
-                }
-                
-            
-            }
-        }
-        })
+    if (li.className != 'card') { //invert the if clouse to prevent nesting
+        return;
+    }
+    openedCards(li);
+    if (listShow.length != 2) {
+        return;
+    }
+    movesUpdate();
+
+    cardMatch();
+
+})
 
 //number of moves
 //number of stars
+const numberOfStars = function() {
+    const star = document.querySelector('.fa fa-star');
+    console.log(star);
+    const starParent = document.querySelector('.stars')
+    console.log(starParent);
+    if (numberOfMoves === 5) {       
+        star.starParent.removeChild(star);
+    } else if (numberOfMoves === 10) {
+
+    }
+};
+numberOfStars();
+
+/*
+ * Create a list that holds all of your cards
+ */
+
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 
 /*
 console.log(shuffle(cards));
