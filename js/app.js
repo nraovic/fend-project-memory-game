@@ -53,8 +53,8 @@ listHidden = [];
 listMatch = [];
 
 //get span and moves
-let moves = document.querySelector('.moves');
-moves.textContent = 0;
+const moves = document.querySelector('.moves');
+let numberOfMoves= 0;
 //step
 ul.addEventListener('click', (e) => {
     const li = e.target;
@@ -62,7 +62,9 @@ ul.addEventListener('click', (e) => {
         li.className += ' show';
         listShow.push(li);
         if (listShow.length === 2) {
-            moves.textContent += 1;
+            numberOfMoves += 1;
+            moves.textContent = `${numberOfMoves}`
+            console.log(numberOfMoves)            
             if (listShow[0].firstChild.className === listShow[1].firstChild.className) { //cardMatch function
                 listShow[0].className = 'card match';
                 listShow[1].className = 'card match';
