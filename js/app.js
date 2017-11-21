@@ -47,6 +47,48 @@ for (let sign of shuffleSigns) {
     ul.appendChild(li);
     li.appendChild(i);
 }
+
+listShow = [];
+listHidden = [];
+listMatch = [];
+
+//get span and moves
+let moves = document.querySelector('.moves');
+moves.textContent = 0;
+//step
+ul.addEventListener('click', (e) => {
+    const li = e.target;
+    if (li.className === 'card') {
+        li.className += ' show';
+        listShow.push(li);
+        if (listShow.length === 2) {
+            moves.textContent += 1;
+            if (listShow[0].firstChild.className === listShow[1].firstChild.className) { //cardMatch function
+                listShow[0].className = 'card match';
+                listShow[1].className = 'card match';
+                listShow = [];
+            } else {
+                listShow[0].style.cssText = 'transition: 0.6s; transform: rotateY(180deg);'; //cardMissed function
+                listShow[1].style.cssText = 'transition: 0.6s; transform: rotateY(180deg);';
+                listShow[0].addEventListener('transitionend', (e) => {                   
+                    e.target.className = 'card';
+                    e.target.style.cssText = '';
+                });
+                listShow[1].addEventListener('transitionend', (e) => {
+                    e.target.className = 'card';
+                    e.target.style.cssText = '';
+                }); 
+                listShow = [];
+                }
+                
+            
+            }
+        }
+        })
+
+//number of moves
+//number of stars
+
 /*
 console.log(shuffle(cards));
 const index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
