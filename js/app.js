@@ -1,18 +1,5 @@
 
-let ul = document.querySelector('.deck');
-
-const cardSymbols = [
-    'fa fa-diamond', 'fa fa-diamond', 
-    'fa fa-paper-plane-o', 'fa fa-paper-plane-o', 
-    'fa fa-anchor', 'fa fa-anchor',
-    'fa fa-bolt', 'fa fa-bolt',
-    'fa fa-cube', 'fa fa-cube',
-    'fa fa-leaf', 'fa fa-leaf',
-    'fa fa-bicycle', 'fa fa-bicycle',
-    'fa fa-bomb', 'fa fa-bomb'
-];
-
-
+//Helper function
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -24,40 +11,48 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-    return array;
 }
 
-const shuffleSymbols = shuffle(cardSymbols);
-console.log(shuffleSymbols);
+//create class names for all possible card symbols
+let cardSymbols = [
+    'fa fa-diamond',
+    'fa fa-paper-plane-o',
+    'fa fa-anchor',
+    'fa fa-bolt',
+    'fa fa-cube',
+    'fa fa-leaf',
+    'fa fa-bicycle',
+    'fa fa-bomb',
+];
+cardSymbols = [...cardSymbols, ...cardSymbols];
 
-for (let sign of shuffleSymbols) {
-    let li = document.createElement('li');
-    li.className = 'card';
-    let i = document.createElement('i');
-    i.className = sign;
-    ul.appendChild(li);
-    li.appendChild(i);
+//shuffle symbols and create an li element for each card and append it to the ul element
+const ul = document.querySelector('.deck');
+const createCards = function() {
+    shuffle(cardSymbols);
+    console.log(cardSymbols);
+    for (let sign of cardSymbols) {
+        let li = document.createElement('li');
+        li.className = 'card';
+        let i = document.createElement('i');
+        i.className = sign;
+        ul.appendChild(li);
+        li.appendChild(i);
+    }
 }
+createCards();
 
-let listShow = [];
-const showCards = function (li) {
-    li.className += ' show';
-    listShow.push(li);
+//add open and show class to li element when card is clicked and add it to the list of open cards
+let openCards = [];
+const showCards = function(cardToOpen) {
+    cardToOpen.className += ' show open';
+    openCards.push(cardToOpen);
 };
 
-//get span and moves
-let numberOfMoves = 0;
-const updateMoves = function() {
-    const moves = document.querySelector('.moves');
-    numberOfMoves += 1;
-    moves.textContent = `${numberOfMoves}`
-}
-
-//check if cards match and trigger appropriate behaviour 
-const cardMatch = function() {
-    const cardsMatch = listShow[0].firstChild.className === listShow[1].firstChild.className;
-    for (element of listShow) {
+//check if cards' symbols match and trigger appropriate behaviour 
+const cardMatch = function () {
+    const cardsMatch = openCards[0].firstChild.className === openCards[1].firstChild.className;
+    for (element of openCards) {
         if (cardsMatch) {
             element.className = 'card match';
         } else {
@@ -68,40 +63,56 @@ const cardMatch = function() {
             })
         }
     }
-    //clear the 'show' list
-    listShow = [];
+    //clear the openCards list
+    openCards.splice(0);
 }
 
+//update number of moves
+let numberOfMoves = 0;
+const updateMoves = function() {
+    const moves = document.querySelector('.moves');
+    numberOfMoves += 1;
+    moves.textContent = `${numberOfMoves}`
+}
 
-//step
+//update number of stars
 const updateStars = function () {
     const starParent = document.querySelector('.stars')
     const star = starParent.firstElementChild; //firstChild returns #text
-    if (numberOfMoves === 5) {
+    if (numberOfMoves === 10) {
+        starParent.removeChild(star);
+    } else if (numberOfMoves === 15) {
         starParent.removeChild(star);
     }
 };
 
-
+//add event listener to all cards and update all functions
 ul.addEventListener('click', (e) => {
     const li = e.target;
-    if (li.className != 'card') { //invert the if clouse to prevent nesting
+    //ckeck if the event target is the li element with class 'card'
+    //invert the if clause to prevent nesting
+    if (li.className != 'card') { 
         return;
     }
     showCards(li);
-    if (listShow.length != 2) {
+
+    const s = function() {
+        li.className = "";
+    }
+    //if the number of opened cards is 2, check if the cards match and update number of moves and stars
+    if (openCards.length != 2) {
         return;
     }
-    updateMoves();
-
     cardMatch();
+    updateMoves();
     updateStars();
 })
 
-//number of moves
-//number of stars
-
-
+//reload the page when the restart symbol is clicked
+const restart = document.querySelector('.restart');
+restart.addEventListener('click', (e) => {
+    location.reload();
+})
 
 /*
  * Create a list that holds all of your cards
