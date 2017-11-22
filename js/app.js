@@ -41,14 +41,14 @@ for (let sign of shuffleSymbols) {
 }
 
 let listShow = [];
-const openedCards = function (li) {
+const showCards = function (li) {
     li.className += ' show';
     listShow.push(li);
 };
 
 //get span and moves
 let numberOfMoves = 0;
-const movesUpdate = function() {
+const updateMoves = function() {
     const moves = document.querySelector('.moves');
     numberOfMoves += 1;
     moves.textContent = `${numberOfMoves}`
@@ -70,9 +70,17 @@ const cardMatch = function() {
     }
     //clear the 'show' list
     listShow = [];
-    }
-    
+}
+
+
 //step
+const updateStars = function () {
+    const starParent = document.querySelector('.stars')
+    const star = starParent.firstElementChild; //firstChild returns #text
+    if (numberOfMoves === 5) {
+        starParent.removeChild(star);
+    }
+};
 
 
 ul.addEventListener('click', (e) => {
@@ -80,30 +88,20 @@ ul.addEventListener('click', (e) => {
     if (li.className != 'card') { //invert the if clouse to prevent nesting
         return;
     }
-    openedCards(li);
+    showCards(li);
     if (listShow.length != 2) {
         return;
     }
-    movesUpdate();
+    updateMoves();
 
     cardMatch();
-
+    updateStars();
 })
 
 //number of moves
 //number of stars
-const numberOfStars = function() {
-    const star = document.querySelector('.fa fa-star');
-    console.log(star);
-    const starParent = document.querySelector('.stars')
-    console.log(starParent);
-    if (numberOfMoves === 5) {       
-        star.starParent.removeChild(star);
-    } else if (numberOfMoves === 10) {
 
-    }
-};
-numberOfStars();
+
 
 /*
  * Create a list that holds all of your cards
