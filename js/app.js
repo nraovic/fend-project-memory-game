@@ -48,6 +48,29 @@ const showCards = function(cardToOpen) {
     cardToOpen.className += ' show open';
     openCards.push(cardToOpen);
 };
+let matchedCards = [];
+//modal message
+const createModal = function() {
+    if (matchedCards.length != 16) {
+        return;
+    }
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    console.log(modal);
+    const message = document.createElement('p');
+    message.textContent = "Congratulations! You've matched all cards!"
+    const starsMoves = document.createElement('span');
+    const stars = document.querySelector('.stars');
+    const starsNumber = stars.children.length;
+    console.log(starsNumber);
+    const moves = document.querySelector('.moves');
+    const movesMade = moves.textContent;
+    console.log(movesMade);
+    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star`;
+    modal.appendChild(message);
+    modal.appendChild(starsMoves);
+    document.body.appendChild(modal);
+}
 
 //check if cards' symbols match and trigger appropriate behaviour 
 const cardMatch = function () {
@@ -55,6 +78,7 @@ const cardMatch = function () {
     for (element of openCards) {
         if (cardsMatch) {
             element.className = 'card match';
+            matchedCards.push(element);
         } else {
             element.style.cssText = 'transition: 0.6s; transform: rotateY(180deg);';
             element.addEventListener('transitionend', (e) => {
@@ -106,6 +130,8 @@ ul.addEventListener('click', (e) => {
     cardMatch();
     updateMoves();
     updateStars();
+    console.log(matchedCards)
+    createModal();
 })
 
 //reload the page when the restart symbol is clicked
@@ -124,22 +150,6 @@ restart.addEventListener('click', (e) => {
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-/*
-console.log(shuffle(cards));
-const index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-const shuffleIndex = shuffle(index);
-console.log(shuffleIndex);
-
-let i = 0;
-let newCards = [];
-for (let index of shuffleIndex) {  
-    let element = cards[shuffleIndex[i]];
-    newCards.push(element);
-    i += 1;
-}
-console.log(newCards);
-*/
 
 /*
  * set up the event listener for a card. If a card is clicked:
