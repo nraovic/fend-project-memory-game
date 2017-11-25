@@ -52,24 +52,25 @@ let matchedCards = [];
 //modal message
 const createModal = function() {
     if (matchedCards.length != 16) {
-        return;
+       return;
     }
     const modal = document.createElement('div');
     modal.className = 'modal';
-    console.log(modal);
     const message = document.createElement('p');
-    message.textContent = "Congratulations! You've matched all cards!"
+    message.textContent = "CONGRATULATIONS! You've matched all cards!"
     const starsMoves = document.createElement('span');
     const stars = document.querySelector('.stars');
     const starsNumber = stars.children.length;
-    console.log(starsNumber);
     const moves = document.querySelector('.moves');
     const movesMade = moves.textContent;
-    console.log(movesMade);
-    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star`;
+    const playBtn = document.createElement('button');
+    playBtn.textContent = 'Play again'
+    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star(s)`;
     modal.appendChild(message);
     modal.appendChild(starsMoves);
-    document.body.appendChild(modal);
+    modal.appendChild(playBtn);
+    const container = document.querySelector('.container');
+    container.appendChild(modal);
 }
 
 //check if cards' symbols match and trigger appropriate behaviour 
