@@ -54,23 +54,40 @@ const createModal = function() {
     if (matchedCards.length != 16) {
        return;
     }
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    const message = document.createElement('p');
-    message.textContent = "CONGRATULATIONS! You've matched all cards!"
-    const starsMoves = document.createElement('span');
+    function createElement(elementName, method, value, parent) {
+        const element = document.createElement(elementName);
+        element[method] = value;
+        parent.appendChild(element);
+        return element;
+    }
+    //get container element to append the modal to it
+    const container = document.querySelector('.container');
+    const modal = createElement('div', 'className', 'modal', container);
+    const message = createElement('p', 'textContent', "CONGRATULATIONS! You've matched all cards!", modal);
+    //get number of stars and number of moves for the modal message
     const stars = document.querySelector('.stars');
     const starsNumber = stars.children.length;
     const moves = document.querySelector('.moves');
     const movesMade = moves.textContent;
+    const starsMoves = createElement('span', 'textContent', `You've made ${movesMade} moves and earned ${starsNumber} star(s)`, modal);
+    const button = createElement('button', 'textContent', 'Play again', modal);
+    /*
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    container.appendChild(modal);
+
+    const message = document.createElement('p');
+    message.textContent = "CONGRATULATIONS! You've matched all cards!"
+    modal.appendChild(message);
+
+    
+    const starsMoves = document.createElement('span');
+    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star(s)`;
+    modal.appendChild(starsMoves);
+
     const playBtn = document.createElement('button');
     playBtn.textContent = 'Play again'
-    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star(s)`;
-    modal.appendChild(message);
-    modal.appendChild(starsMoves);
-    modal.appendChild(playBtn);
-    const container = document.querySelector('.container');
-    container.appendChild(modal);
+    modal.appendChild(playBtn);*/
 }
 
 //check if cards' symbols match and trigger appropriate behaviour 
