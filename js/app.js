@@ -1,5 +1,4 @@
-
-//Helper function
+//Helper functions
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -11,6 +10,14 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
+}
+
+//reload the page when element with elementClass is clicked
+const reload = function (elementClass) {
+    const element = document.querySelector(elementClass);
+    element.addEventListener('click', (e) => {
+        location.reload();
+    })
 }
 
 //create class names for all possible card symbols
@@ -26,7 +33,7 @@ let cardSymbols = [
 ];
 cardSymbols = [...cardSymbols, ...cardSymbols];
 
-//shuffle symbols and create an li element for each card and append it to the ul element
+//shuffle symbols and create a list element for each card and append it to the ul element
 const ul = document.querySelector('.deck');
 const createCards = function() {
     shuffle(cardSymbols);
@@ -42,18 +49,23 @@ const createCards = function() {
 }
 createCards();
 
-//add open and show class to li element when card is clicked and add it to the list of open cards
+//create lists of open cards and matched cards
 let openCards = [];
+let matchedCards = [];
+
+//add open and show class to li element when card is clicked and add it to the list of open cards
 const showCards = function(cardToOpen) {
     cardToOpen.className += ' show open';
     openCards.push(cardToOpen);
 };
-let matchedCards = [];
-//modal message
+
+//create modal message that pops up when all cards are matched
 const createModal = function() {
-    if (matchedCards.length != 16) {
+    const totalNumberOfCards = 16;
+    if (matchedCards.length != totalNumberOfCards) {
        return;
     }
+    //helper function
     function createElement(elementName, method, value, parent) {
         const element = document.createElement(elementName);
         element[method] = value;
@@ -71,26 +83,13 @@ const createModal = function() {
     const movesMade = moves.textContent;
     const starsMoves = createElement('span', 'textContent', `You've made ${movesMade} moves and earned ${starsNumber} star(s)`, modal);
     const button = createElement('button', 'textContent', 'Play again', modal);
-    /*
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    container.appendChild(modal);
+    button.className = 'playBtn';
+    //reload the page on 'Play again' button
+    reload('.playBtn');
 
-    const message = document.createElement('p');
-    message.textContent = "CONGRATULATIONS! You've matched all cards!"
-    modal.appendChild(message);
-
-    
-    const starsMoves = document.createElement('span');
-    starsMoves.textContent = `You've made ${movesMade} moves and earned ${starsNumber} star(s)`;
-    modal.appendChild(starsMoves);
-
-    const playBtn = document.createElement('button');
-    playBtn.textContent = 'Play again'
-    modal.appendChild(playBtn);*/
 }
 
-//check if cards' symbols match and trigger appropriate behaviour 
+//check if cards' symbols match and if they do add it them to the matchedCards list
 const cardMatch = function () {
     const cardsMatch = openCards[0].firstChild.className === openCards[1].firstChild.className;
     for (element of openCards) {
@@ -146,17 +145,26 @@ ul.addEventListener('click', (e) => {
         return;
     }
     cardMatch();
+
     updateMoves();
     updateStars();
-    console.log(matchedCards)
     createModal();
 })
 
 //reload the page when the restart symbol is clicked
+reload('.restart');
+/*
 const restart = document.querySelector('.restart');
+const playBtn = document.
 restart.addEventListener('click', (e) => {
     location.reload();
 })
+
+
+button.addEventListener('clicked', (e) => {
+    location.reload();
+})
+*/
 
 /*
  * Create a list that holds all of your cards

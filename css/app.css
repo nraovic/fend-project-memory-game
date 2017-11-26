@@ -160,7 +160,9 @@ h1 {
         height: 85px;
     }
 }
-@media (max-width: 425px) {
+/*?????????*/
+/*Why this media query doesnt work with max-widt: 425px??*/
+@media (max-width: 426px) {
     .deck {
         width: 300px;
         height: 300px;
