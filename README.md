@@ -8,5 +8,5 @@
 
 ## How to run the game
 
-* You can play the game [here](file:///C:/Users/NenaGajo/Desktop/frontend%20nanodegree/projects/fend-project-memory-game/index.html)
+* You can play the game [here](https://nraovic.github.io/fend-project-memory-game/)
 * Alternatively, run the _index.html_ file
