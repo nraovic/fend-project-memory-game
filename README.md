@@ -1,20 +1,12 @@
 # Memory Game Project
 
-## Table of Contents
+## How to play
+* Flip one card over to reveal its underlying symbol.
+* Turn over a second card, trying to find the corresponding card with the same symbol.
+* The goal is to match all cards while keeping as many stars as possible
+* Game is over when all cards have been matched
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## How to run the game
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+* You can play the game [here](file:///C:/Users/NenaGajo/Desktop/frontend%20nanodegree/projects/fend-project-memory-game/index.html)
+* Alternatively, run the _index.html_ file
