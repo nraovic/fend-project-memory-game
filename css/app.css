@@ -77,11 +77,14 @@ h1 {
     background: #02ccba;
     font-size: 33px;
 }
+
 .unmatch {
     background-color: #ff3232;
     animation: shake 0.6s;
 }
+
 /* Add keyframeys for the animation when cards do not match */
+
 @keyframes shake {
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
@@ -141,6 +144,7 @@ h1 {
     opacity: 0.8;
     font-size: 1.2em;
 }
+
 .modal button {
     font-size: 1.2em;
     font-family: 'Open Sans', sans-serif;
@@ -151,6 +155,7 @@ h1 {
     border: 2px solid #2e3d49;
     cursor: pointer;  
 }
+
 @media(max-width: 767px) {
     .deck {
         min-height: 0;
