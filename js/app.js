@@ -12,7 +12,7 @@ function shuffle(array) {
     }
 }
 
-//reload the page when element with elementClass is clicked
+//reload the page when the element with elementClass is clicked
 const reload = function (elementClass) {
     const element = document.querySelector(elementClass);
     element.addEventListener('click', (e) => {
@@ -53,9 +53,9 @@ createCards();
 let openCards = [];
 let matchedCards = [];
 
-//add open and show class to li element when card is clicked and add it to the list of open cards
+//add open class to li element when card is clicked and add it to the list of open cards
 const showCards = function(cardToOpen) {
-    cardToOpen.className += ' show open';
+    cardToOpen.className += ' open';
     openCards.push(cardToOpen);
 };
 
@@ -91,16 +91,15 @@ const createModal = function() {
 
 //check if cards' symbols match and if they do add it them to the matchedCards list
 const cardMatch = function () {
-    const cardsMatch = openCards[0].firstChild.className === openCards[1].firstChild.className;
+    const cardsMatched = openCards[0].firstChild.className === openCards[1].firstChild.className;
     for (element of openCards) {
-        if (cardsMatch) {
+        if (cardsMatched) {
             element.className = 'card match';
             matchedCards.push(element);
         } else {
-            element.style.cssText = 'transition: 0.6s; transform: rotateY(180deg);';
-            element.addEventListener('transitionend', (e) => {
+            element.className += ' unmatch';
+            element.addEventListener('animationend', (e) => {
                 e.target.className = 'card';
-                e.target.style.cssText = '';
             })
         }
     }
@@ -108,7 +107,7 @@ const cardMatch = function () {
     openCards.splice(0);
 }
 
-//update number of moves
+//update the number of moves
 let numberOfMoves = 0;
 const updateMoves = function() {
     const moves = document.querySelector('.moves');
@@ -120,9 +119,9 @@ const updateMoves = function() {
 const updateStars = function () {
     const starParent = document.querySelector('.stars')
     const star = starParent.firstElementChild; //firstChild returns #text
-    if (numberOfMoves === 10) {
+    if (numberOfMoves === 12) {
         starParent.removeChild(star);
-    } else if (numberOfMoves === 15) {
+    } else if (numberOfMoves === 17) {
         starParent.removeChild(star);
     }
 };
@@ -153,6 +152,7 @@ ul.addEventListener('click', (e) => {
 
 //reload the page when the restart symbol is clicked
 reload('.restart');
+
 /*
 const restart = document.querySelector('.restart');
 const playBtn = document.
