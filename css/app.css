@@ -83,7 +83,7 @@ h1 {
     animation: shake 0.6s;
 }
 
-/* Add keyframeys for the animation when cards do not match */
+/* keyframeys for the animation when cards do not match */
 
 @keyframes shake {
   10%, 90% {
@@ -130,10 +130,10 @@ h1 {
 }
 
 .modal {
-    width: 500px; /* takes up the full container - body*/
+    width: 500px;
     height: 300px; 
-    z-index: 10; /*covers all other elements*/
-    position: fixed; /* fixed to the viewport*/
+    z-index: 10;
+    position: fixed;
     background: #fff url('../img/geometry2.png');
     display: flex;
     flex-direction: column;
@@ -180,8 +180,7 @@ h1 {
         height: 85px;
     }
 }
-/*?????????*/
-/*Why this media query doesnt work with max-widt: 425px??*/
+
 @media (max-width: 426px) {
     .deck {
         width: 300px;
