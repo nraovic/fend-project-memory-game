@@ -59,7 +59,7 @@ const showCards = function(cardToOpen) {
     openCards.push(cardToOpen);
 };
 
-//create modal message that pops up when all cards are matched
+//create modal message that pops up when all cards match
 const createModal = function() {
     const totalNumberOfCards = 16;
     if (matchedCards.length != totalNumberOfCards) {
@@ -74,6 +74,7 @@ const createModal = function() {
     }
     //get container element to append the modal to it
     const container = document.querySelector('.container');
+    //append modal with the message
     const modal = createElement('div', 'className', 'modal', container);
     const message = createElement('p', 'textContent', "CONGRATULATIONS! You've matched all cards!", modal);
     //get number of stars and number of moves for the modal message
@@ -81,7 +82,9 @@ const createModal = function() {
     const starsNumber = stars.children.length;
     const moves = document.querySelector('.moves');
     const movesMade = moves.textContent;
+    //append the number of moves and stars to the modal
     const starsMoves = createElement('span', 'textContent', `You've made ${movesMade} moves and earned ${starsNumber} star(s)`, modal);
+    //append button for play again option
     const button = createElement('button', 'textContent', 'Play again', modal);
     button.className = 'playBtn';
     //reload the page on 'Play again' button
