@@ -31,6 +31,8 @@ let cardSymbols = [
     'fa fa-bicycle',
     'fa fa-bomb',
 ];
+
+//use spread operator to double each symbol in cardSymbols
 cardSymbols = [...cardSymbols, ...cardSymbols];
 
 //shuffle symbols and create a list element for each card and append it to the ul element
@@ -48,14 +50,14 @@ const createCards = () => {
 };
 createCards();
 
-//create lists of open cards and matched cards
-let openCards = [];
+//create empthy lists of open cards and matched cards
+let openedCards = [];
 let matchedCards = [];
 
 //add open class to li element when card is clicked and add it to the list of open cards
-const showCards = (cardToOpen) => {
+const openCards = (cardToOpen) => {
     cardToOpen.className += ' open';
-    openCards.push(cardToOpen);
+    openedCards.push(cardToOpen);
 };
 
 //create modal message that pops up when all cards match
@@ -92,8 +94,8 @@ const createModal = () => {
 
 //check if cards' symbols match and if they do add it them to the matchedCards list
 const cardMatch = () => {
-    const cardsMatched = openCards[0].firstChild.className === openCards[1].firstChild.className;
-    for (element of openCards) {
+    const cardsMatched = openedCards[0].firstChild.className === openedCards[1].firstChild.className;
+    for (element of openedCards) {
         if (cardsMatched) {
             element.className = 'card match';
             matchedCards.push(element);
@@ -105,7 +107,7 @@ const cardMatch = () => {
         }
     }
     //clear the openCards list
-    openCards.splice(0);
+    openedCards.splice(0);
 };
 
 //update the number of moves
@@ -129,14 +131,15 @@ const updateStars = () => {
 //Add timer
 const timer = document.querySelector('.timer');
 timer.textContent = `00:00`;
-const updateTimer = () => {
+const startTimer = () => {
+    //get current time to initialize the timer
     let initialTime = new Date().getTime();
     setInterval(() => {
-        //If all cards are matched stop the timer
+        //If all cards are matched stop the timer, otherwise update the timer
         if (matchedCards.length === 16) {
             return;
         }
-        //otherwise update the timer
+        //keep getting the current time and check how much time has passed since the initial time
         let timeNow = new Date().getTime();
         let elapseTime = timeNow - initialTime;
         let totalSec = Math.floor(elapseTime / 1000);
@@ -150,22 +153,22 @@ const updateTimer = () => {
 };
 
 //add event listener to all cards and update all functions
-let clicks = 0;
+let timerStarted = false; //
 ul.addEventListener('click', (e) => {
     const li = e.target;
     //ckeck if the event target is the li element with class 'card'
-    //invert the if clause to prevent nesting
+    //invert the if statement to prevent nesting
     if (li.className != 'card') { 
         return;
     }
     //Run the timer on the first card click
-    clicks++;
-    if (clicks === 1) {
-        updateTimer();
+    if (!timerStarted) {
+        startTimer();
+        timerStarted = true;
     }
-    showCards(li);
+    openCards(li);
     //if the number of opened cards is 2, check if the cards match and update number of moves and stars
-    if (openCards.length != 2) {
+    if (openedCards.length != 2) {
         return;
     }
     cardMatch();
