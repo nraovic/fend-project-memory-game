@@ -124,16 +124,24 @@ h1 {
     display: inline-block;
 }
 
-.score-panel .timer {
-    float: right;
-}
-
 .score-panel .restart {
     float: right;
     cursor: pointer;
     padding-right: 20px;
 }
 
+/*Style for the timer*/
+
+.timer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #2e3d49;
+    color: #fff;
+    text-align: center;
+    width: 60px;
+    border-radius: 4px;
+}
 .modal {
     width: 500px;
     height: 300px; 
