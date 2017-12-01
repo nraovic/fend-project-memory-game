@@ -36,11 +36,20 @@ const updateTimer = function() {
         let elapseTime = timeNow - initialTime;
         let totalSec = Math.floor(elapseTime/1000);
         let minutes = Math.floor(totalSec/60);
-        let seconds = totalSec - minutes*60; 
-        //format minutes and seconds to two-digit numbers
-        minutes = minutes.toLocaleString(undefined, {minimumIntegerDigits: 2});
-        seconds = seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 })
-        timer.textContent = `${minutes}:${seconds}`;       
+        let seconds = totalSec - minutes*60;
+
+        if (seconds <= 9) {
+            finalSeconds = `0${seconds}`;
+        } else {
+            finalSeconds = `${seconds}`;
+        }
+        if (minutes <= 9) {
+            finalMinutes = `0${minutes}`;
+        } else {
+            finalMinutes = `${minutes}`;
+        }
+        timer.textContent = `${finalMinutes}:${finalSeconds}`;
+            
     });
 }
 
@@ -144,10 +153,11 @@ const updateMoves = function() {
 //update number of stars
 const updateStars = function () {
     const starParent = document.querySelector('.stars')
+    const star = starParent.firstElementChild; //firstChild returns #text
     if (numberOfMoves === 12) {
-        starParent.children[2].style.color = '#000';
+        starParent.removeChild(star);
     } else if (numberOfMoves === 17) {
-        starParent.children[1].style.color = '#000';
+        starParent.removeChild(star);
     }
 };
 
