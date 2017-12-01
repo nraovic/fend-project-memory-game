@@ -103,7 +103,7 @@ const cardMatch = () => {
             element.className += ' unmatch';
             element.addEventListener('animationend', (e) => {
                 e.target.className = 'card';
-            })
+            });
         }
     }
     //clear the openCards list
@@ -115,12 +115,12 @@ let numberOfMoves = 0;
 const updateMoves = () => {
     const moves = document.querySelector('.moves');
     numberOfMoves += 1;
-    moves.textContent = `${numberOfMoves}`
+    moves.textContent = `${numberOfMoves}`;
 };
 
 //update number of stars
 const updateStars = () => {
-    const starParent = document.querySelector('.stars')
+    const starParent = document.querySelector('.stars');
     if (numberOfMoves === 12) {
         starParent.children[2].style.color = '#000';
     } else if (numberOfMoves === 17) {
@@ -176,6 +176,6 @@ ul.addEventListener('click', (e) => {
     updateMoves();
     updateStars();
     createModal();
-})
+});
 //reload the page when the restart symbol is clicked
 reload('.restart');
