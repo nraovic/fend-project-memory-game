@@ -33,7 +33,6 @@ h1 {
     font-size: 2em;
     background: -webkit-linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -83,7 +82,7 @@ h1 {
 }
 
 .unmatch {
-    background-color: #aa7ecd;
+    background-color: #ff2f2f;
     animation: shake 0.6s;
 }
 
@@ -158,12 +157,12 @@ h1 {
     align-items: center;
     border: 2px solid #2e3d49;
     border-radius: 8px;
-    opacity: 0.8;
     font-size: 1.2em;
     padding: 30px 20px;
 }
 
-.modal span, .modal p {
+.modal span, 
+.modal p {
     text-align: center;
 }
 
@@ -174,7 +173,7 @@ h1 {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #2e3d49;
-    border: 2px solid #2e3d49;
+    border: 0;
     color: #fff;
     cursor: pointer;  
 }
