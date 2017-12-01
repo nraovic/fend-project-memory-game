@@ -109,13 +109,12 @@ const createModal = function() {
     //append modal with the message
     const modal = createElement('div', 'className', 'modal', container);
     const message = createElement('p', 'textContent', "CONGRATULATIONS! You've matched all cards!", modal);
-    //get number of stars and number of moves for the modal message
+    //get number of stars and total time
     const stars = document.querySelector('.stars');
     const starsNumber = stars.children.length;
-    const moves = document.querySelector('.moves');
-    const movesMade = moves.textContent;
-    //append the number of moves and stars to the modal
-    const starsMoves = createElement('span', 'textContent', `You've made ${movesMade} moves and earned ${starsNumber} star(s)`, modal);
+    const time = timer.textContent;
+    //append the time and stars to the modal
+    const starsMoves = createElement('span', 'textContent', `You've finished the game in ${time} seconds and earned ${starsNumber} star(s)`, modal);
     //append button for play again option
     const button = createElement('button', 'textContent', 'Play again', modal);
     button.className = 'playBtn';
