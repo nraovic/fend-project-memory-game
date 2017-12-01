@@ -1,7 +1,7 @@
 //Helper functions
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -13,36 +13,12 @@ function shuffle(array) {
 }
 
 //reload the page when element with elementClass is clicked
-const reload = function (elementClass) {
+const reload = (elementClass) => {
     const element = document.querySelector(elementClass);
     element.addEventListener('click', (e) => {
         location.reload();
     })
-}
-//pause timer when all cards are matched
-//add timer
-const timer = document.querySelector('.timer');
-const initialTimer = `00:00`;
-timer.textContent = initialTimer;
-const updateTimer = function() { 
-    let initialTime = new Date().getTime();
-    setInterval(function () {
-        //If all cards are matched stop the timer
-        if (matchedCards.length === 16) {
-            return;
-        }
-        //otherwise update the timer
-        let timeNow = new Date().getTime();
-        let elapseTime = timeNow - initialTime;
-        let totalSec = Math.floor(elapseTime/1000);
-        let minutes = Math.floor(totalSec/60);
-        let seconds = totalSec - minutes*60; 
-        //format minutes and seconds to two-digit numbers
-        minutes = minutes.toLocaleString(undefined, {minimumIntegerDigits: 2});
-        seconds = seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 })
-        timer.textContent = `${minutes}:${seconds}`;       
-    });
-}
+};
 
 //create class names for all possible card symbols
 let cardSymbols = [
@@ -59,9 +35,8 @@ cardSymbols = [...cardSymbols, ...cardSymbols];
 
 //shuffle symbols and create a list element for each card and append it to the ul element
 const ul = document.querySelector('.deck');
-const createCards = function() {
+const createCards = () => {
     shuffle(cardSymbols);
-    console.log(cardSymbols);
     for (let sign of cardSymbols) {
         let li = document.createElement('li');
         li.className = 'card';
@@ -70,7 +45,7 @@ const createCards = function() {
         ul.appendChild(li);
         li.appendChild(i);
     }
-}
+};
 createCards();
 
 //create lists of open cards and matched cards
@@ -78,19 +53,19 @@ let openCards = [];
 let matchedCards = [];
 
 //add open class to li element when card is clicked and add it to the list of open cards
-const showCards = function(cardToOpen) {
+const showCards = (cardToOpen) => {
     cardToOpen.className += ' open';
     openCards.push(cardToOpen);
 };
 
 //create modal message that pops up when all cards match
-const createModal = function() {
+const createModal = () => {
     const totalNumberOfCards = 16;
     if (matchedCards.length != totalNumberOfCards) {
        return;
     }
     //helper function
-    function createElement(elementName, method, value, parent) {
+    createElement = (elementName, method, value, parent) => {
         const element = document.createElement(elementName);
         element[method] = value;
         parent.appendChild(element);
@@ -113,10 +88,10 @@ const createModal = function() {
     //reload the page on 'Play again' button
     reload('.playBtn');
 
-}
+};
 
 //check if cards' symbols match and if they do add it them to the matchedCards list
-const cardMatch = function () {
+const cardMatch = () => {
     const cardsMatched = openCards[0].firstChild.className === openCards[1].firstChild.className;
     for (element of openCards) {
         if (cardsMatched) {
@@ -131,24 +106,47 @@ const cardMatch = function () {
     }
     //clear the openCards list
     openCards.splice(0);
-}
+};
 
 //update the number of moves
 let numberOfMoves = 0;
-const updateMoves = function() {
+const updateMoves = () => {
     const moves = document.querySelector('.moves');
     numberOfMoves += 1;
     moves.textContent = `${numberOfMoves}`
-}
+};
 
 //update number of stars
-const updateStars = function () {
+const updateStars = () => {
     const starParent = document.querySelector('.stars')
     if (numberOfMoves === 12) {
         starParent.children[2].style.color = '#000';
     } else if (numberOfMoves === 17) {
         starParent.children[1].style.color = '#000';
     }
+};
+
+//Add timer
+const timer = document.querySelector('.timer');
+timer.textContent = `00:00`;
+const updateTimer = () => {
+    let initialTime = new Date().getTime();
+    setInterval(() => {
+        //If all cards are matched stop the timer
+        if (matchedCards.length === 16) {
+            return;
+        }
+        //otherwise update the timer
+        let timeNow = new Date().getTime();
+        let elapseTime = timeNow - initialTime;
+        let totalSec = Math.floor(elapseTime / 1000);
+        let minutes = Math.floor(totalSec / 60);
+        let seconds = totalSec - minutes * 60;
+        //format minutes and seconds to two-digit numbers
+        minutes = minutes.toLocaleString(undefined, { minimumIntegerDigits: 2 });
+        seconds = seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 })
+        timer.textContent = `${minutes}:${seconds}`;
+    });
 };
 
 //add event listener to all cards and update all functions
