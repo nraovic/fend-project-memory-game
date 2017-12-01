@@ -169,8 +169,8 @@ h1 {
     border-radius: 8px;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #ff3232;
-    border: 2px solid #2e3d49;
+    background-color: #2e3d49;
+    color: #fff;
     cursor: pointer;  
 }
 
