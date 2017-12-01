@@ -19,16 +19,19 @@ const reload = function (elementClass) {
         location.reload();
     })
 }
+//pause timer when all cards are matched
 //add timer
 const timer = document.querySelector('.timer');
-const timerReset = function() {
-    timer.textContent = `00:00`;
-}
-timerReset();
-const updateTimer = function() {
-    timerReset();
+const initialTimer = `00:00`;
+timer.textContent = initialTimer;
+const updateTimer = function() { 
     let initialTime = new Date().getTime();
     setInterval(function () {
+        //If all cards are matched stop the timer
+        if (matchedCards.length === 16) {
+            return;
+        }
+        //otherwise update the timer
         let timeNow = new Date().getTime();
         let elapseTime = timeNow - initialTime;
         let totalSec = Math.floor(elapseTime/1000);
@@ -46,11 +49,9 @@ const updateTimer = function() {
             finalMinutes = `${minutes}`;
         }
         timer.textContent = `${finalMinutes}:${finalSeconds}`;
+            
     });
 }
-
-
-
 
 //create class names for all possible card symbols
 let cardSymbols = [
@@ -185,7 +186,5 @@ ul.addEventListener('click', (e) => {
     updateStars();
     createModal();
 })
-
-//update timer
 //reload the page when the restart symbol is clicked
 reload('.restart');

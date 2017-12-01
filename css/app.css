@@ -148,6 +148,11 @@ h1 {
     border-radius: 8px;
     opacity: 0.8;
     font-size: 1.2em;
+    padding: 0 20px;
+}
+
+.modal span {
+    text-align: center;
 }
 
 .modal button {
