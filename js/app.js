@@ -19,6 +19,38 @@ const reload = function (elementClass) {
         location.reload();
     })
 }
+//add timer
+const timer = document.querySelector('.timer');
+const timerReset = function() {
+    timer.textContent = `00:00`;
+}
+timerReset();
+const updateTimer = function() {
+    timerReset();
+    let initialTime = new Date().getTime();
+    setInterval(function () {
+        let timeNow = new Date().getTime();
+        let elapseTime = timeNow - initialTime;
+        let totalSec = Math.floor(elapseTime/1000);
+        let minutes = Math.floor(totalSec/60);
+        let seconds = totalSec - minutes*60;
+
+        if (seconds <= 9) {
+            finalSeconds = `0${seconds}`;
+        } else {
+            finalSeconds = `${seconds}`;
+        }
+        if (minutes <= 9) {
+            finalMinutes = `0${minutes}`;
+        } else {
+            finalMinutes = `${minutes}`;
+        }
+        timer.textContent = `${finalMinutes}:${finalSeconds}`;
+    });
+}
+
+
+
 
 //create class names for all possible card symbols
 let cardSymbols = [
@@ -130,12 +162,18 @@ const updateStars = function () {
 };
 
 //add event listener to all cards and update all functions
+let clicks = 0;
 ul.addEventListener('click', (e) => {
     const li = e.target;
     //ckeck if the event target is the li element with class 'card'
     //invert the if clause to prevent nesting
     if (li.className != 'card') { 
         return;
+    }
+    //Run the timer on the first card click
+    clicks++;
+    if (clicks === 1) {
+        updateTimer();
     }
     showCards(li);
     //if the number of opened cards is 2, check if the cards match and update number of moves and stars
@@ -149,5 +187,6 @@ ul.addEventListener('click', (e) => {
     createModal();
 })
 
+//update timer
 //reload the page when the restart symbol is clicked
 reload('.restart');
