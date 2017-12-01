@@ -78,12 +78,9 @@ const createModal = () => {
     //append modal with the message
     const modal = createElement('div', 'className', 'modal', container);
     const message = createElement('p', 'textContent', "CONGRATULATIONS! You've matched all cards!", modal);
-    //get number of stars and total time
-    const stars = document.querySelector('.stars');
-    const starsNumber = stars.children.length;
     const time = timer.textContent;
     //append the time and stars to the modal
-    const starsMoves = createElement('span', 'textContent', `You've finished the game in ${time} seconds and earned ${starsNumber} star(s)`, modal);
+    const starsMoves = createElement('span', 'textContent', `You've finished the game in ${time} seconds and earned ${goldStarsNumber} star(s)`, modal);
     //append button for play again option
     const button = createElement('button', 'textContent', 'Play again', modal);
     button.className = 'playBtn';
@@ -118,12 +115,15 @@ const updateMoves = () => {
     moves.textContent = `${numberOfMoves}`;
 };
 
-//update number of stars
+//update number of stars and return number of stars to update in the modal message
+let goldStarsNumber = 3;
 const updateStars = () => {
     const starParent = document.querySelector('.stars');
     if (numberOfMoves === 12) {
+        goldStarsNumber -= 1;
         starParent.children[2].style.color = '#000';
     } else if (numberOfMoves === 17) {
+        goldStarsNumber -= 1;
         starParent.children[1].style.color = '#000';
     }
 };
