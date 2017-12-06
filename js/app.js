@@ -132,24 +132,22 @@ const updateStars = () => {
 const timer = document.querySelector('.timer');
 timer.textContent = `00:00`;
 const startTimer = () => {
-    //get current time to initialize the timer
-    let initialTime = new Date().getTime();
+    //Initialize the counter
+    let totalSecCounter = 0;
     setInterval(() => {
         //If all cards are matched stop the timer, otherwise update the timer
         if (matchedCards.length === 16) {
             return;
         }
-        //keep getting the current time and check how much time has passed since the initial time
-        let timeNow = new Date().getTime();
-        let elapseTime = timeNow - initialTime;
-        let totalSec = Math.floor(elapseTime / 1000);
-        let minutes = Math.floor(totalSec / 60);
-        let seconds = totalSec - minutes * 60;
+        //Update the counter every second
+        totalSecCounter++;
+        let minutes = Math.floor(totalSecCounter / 60);
+        let seconds = totalSecCounter - minutes * 60;
         //format minutes and seconds to two-digit numbers
         minutes = minutes.toLocaleString(undefined, { minimumIntegerDigits: 2 });
         seconds = seconds.toLocaleString(undefined, { minimumIntegerDigits: 2 })
         timer.textContent = `${minutes}:${seconds}`;
-    });
+    }, 1000);
 };
 
 //add event listener to all cards and update all functions
